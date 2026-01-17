@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No-Code | Создание продукта без кода</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .topic-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .topic-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.25), 0 10px 10px -5px rgba(59, 130, 246, 0.1);
+        }
+        .platform-card {
+            transition: all 0.4s ease;
+        }
+        .platform-card:hover {
+            transform: scale(1.03);
+            border-color: rgb(59 130 246);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-sans min-h-screen">
+
+    <nav class="p-6 max-w-6xl mx-auto flex justify-between items-center border-b border-slate-800">
+        <a href="stage2.html" class="text-blue-400 hover:text-blue-300 font-medium flex items-center">
+            <span class="mr-2">←</span> Назад к этапу 2
+        </a>
+        <div class="px-4 py-1 bg-slate-800 rounded-full text-xs text-slate-400 border border-slate-700">
+            No-Code • 2026
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-6 pt-12">
+
+        <header class="text-center mb-16">
+            <h1 class="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                No-Code — твой быстрый старт
+            </h1>
+            <p class="text-slate-300 text-xl max-w-3xl mx-auto leading-relaxed">
+                Создавай полноценные сайты, лендинги, MVP и даже веб-приложения <strong>без единой строчки кода</strong>. 
+                Идеально для стартаперов, которые хотят проверить идею за 1–2 недели.
+            </p>
+        </header>
+
+        <!-- Введение + зачем -->
+        <section class="mb-20">
+            <div class="bg-slate-800/50 border border-slate-700 rounded-3xl p-8 md:p-12">
+                <h2 class="text-4xl font-bold mb-6 text-blue-400">Зачем стартаперу No-Code в 2026 году?</h2>
+                <ul class="space-y-4 text-lg text-slate-300">
+                    <li>→ Запуск MVP за дни, а не месяцы</li>
+                    <li>→ Проверка гипотезы без бюджета на разработчиков</li>
+                    <li>→ Красивый дизайн даже без навыков Figma/Photoshop</li>
+                    <li>→ Легко вносить изменения самостоятельно</li>
+                    <li>→ Многие платформы уже имеют встроенный AI-помощник</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Популярные платформы 2026 -->
+        <section class="mb-20">
+            <h2 class="text-4xl font-bold text-center mb-12">Топ No-Code платформ для сайтов в 2026</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div class="platform-card bg-slate-800 p-8 rounded-3xl border border-slate-700 flex flex-col">
+                    <div class="text-5xl mb-6">🌊</div>
+                    <h3 class="text-3xl font-bold mb-3 text-cyan-400">Webflow</h3>
+                    <p class="text-slate-400 mb-4 flex-grow">Самый мощный визуальный конструктор. Почти как код, но без кода.</p>
+                    <ul class="text-sm text-slate-300 mb-6 space-y-1">
+                        <li>✓ Отличный дизайн-контроль</li>
+                        <li>✓ Лучший CMS среди no-code</li>
+                        <li>✓ Хороший SEO и скорость</li>
+                        <li>✗ Крутая кривая обучения</li>
+                    </ul>
+                    <a href="https://webflow.com" target="_blank" class="mt-auto inline-block bg-cyan-600 hover:bg-cyan-500 text-white font-medium py-3 px-6 rounded-xl text-center transition">
+                        Перейти → 
+                    </a>
+                </div>
+
+                <div class="platform-card bg-slate-800 p-8 rounded-3xl border border-slate-700 flex flex-col">
+                    <div class="text-5xl mb-6">🖼️</div>
+                    <h3 class="text-3xl font-bold mb-3 text-pink-400">Framer</h3>
+                    <p class="text-slate-400 mb-4 flex-grow">Для самых красивых и анимированных лендингов 2026 года.</p>
+                    <ul class="text-sm text-slate-300 mb-6 space-y-1">
+                        <li>✓ Потрясающие анимации</li>
+                        <li>✓ AI-генерация макетов</li>
+                        <li>✓ Очень быстро собирать</li>
+                        <li>✗ Меньше возможностей для сложной логики</li>
+                    </ul>
+                    <a href="https://framer.com" target="_blank" class="mt-auto inline-block bg-pink-600 hover:bg-pink-500 text-white font-medium py-3 px-6 rounded-xl text-center transition">
+                        Перейти → 
+                    </a>
+                </div>
+
+                <div class="platform-card bg-slate-800 p-8 rounded-3xl border border-slate-700 flex flex-col">
+                    <div class="text-5xl mb-6">🧩</div>
+                    <h3 class="text-3xl font-bold mb-3 text-yellow-400">Bubble</h3>
+                    <p class="text-slate-400 mb-4 flex-grow">Если нужен не просто сайт, а полноценное веб-приложение.</p>
+                    <ul class="text-sm text-slate-300 mb-6 space-y-1">
+                        <li>✓ База данных + логика + пользователи</li>
+                        <li>✓ Можно делать SaaS</li>
+                        <li>✓ Мощные интеграции</li>
+                        <li>✗ Медленнее и дороже на масштабе</li>
+                    </ul>
+                    <a href="https://bubble.io" target="_blank" class="mt-auto inline-block bg-yellow-600 hover:bg-yellow-500 text-white font-medium py-3 px-6 rounded-xl text-center transition">
+                        Перейти → 
+                    </a>
+                </div>
+
+                <!-- Можно добавить ещё 2–3 карточки: Wix, Tilda, Softr, Carrd и т.д. -->
+
+            </div>
+        </section>
+
+        <!-- Сравнение таблица -->
+        <section class="mb-20">
+            <h2 class="text-4xl font-bold text-center mb-10">Быстрое сравнение 2026</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-800">
+                            <th class="p-5">Платформа</th>
+                            <th class="p-5">Сложность</th>
+                            <th class="p-5">Лучше всего для</th>
+                            <th class="p-5">Цена (примерно)</th>
+                            <th class="p-5">AI-помощь</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-slate-300">
+                        <tr class="border-b border-slate-700">
+                            <td class="p-5 font-medium">Webflow</td>
+                            <td>Средняя → Высокая</td>
+                            <td>Профессиональные сайты, портфолио, блоги</td>
+                            <td>от $14/мес</td>
+                            <td>Да (частично)</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 bg-slate-800/40">
+                            <td class="p-5 font-medium">Framer</td>
+                            <td>Низкая → Средняя</td>
+                            <td>Красивые лендинги, SaaS-маркетинг</td>
+                            <td>от $5–15/мес</td>
+                            <td>Очень сильный AI</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-5 font-medium">Bubble</td>
+                            <td>Высокая</td>
+                            <td>Веб-приложения, маркетплейсы, CRM</td>
+                            <td>от $29/мес</td>
+                            <td>Есть</td>
+                        </tr>
+                        <tr class="border-b border-slate-700 bg-slate-800/40">
+                            <td class="p-5 font-medium">Wix / Wix Studio</td>
+                            <td>Очень низкая</td>
+                            <td>Быстрый запуск, магазины, визитки</td>
+                            <td>от $16/мес</td>
+                            <td>Хороший AI</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-5 font-medium">Tilda (RU)</td>
+                            <td>Низкая</td>
+                            <td>Лендинги, промо-сайты</td>
+                            <td>от 500 ₽/мес</td>
+                            <td>Базовый</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Рекомендация -->
+        <section class="text-center mb-20 bg-gradient-to-br from-blue-900/30 to-emerald-900/30 rounded-3xl p-12 border border-blue-800/40">
+            <h2 class="text-4xl font-bold mb-6">С чего начать прямо сейчас?</h2>
+            <ol class="text-xl text-slate-200 max-w-2xl mx-auto space-y-4 list-decimal list-inside text-left">
+                <li>Определи цель: просто показать идею или уже собирать заявки/пользователей?</li>
+                <li>Если нужна красота и скорость → <strong>Framer</strong> или <strong>Webflow</strong></li>
+                <li>Если нужно приложение с регистрацией и оплатой → <strong>Bubble</strong></li>
+                <li>Хочешь максимально быстро и просто → <strong>Wix</strong> или <strong>Tilda</strong></li>
+                <li>Зарегистрируйся (многие дают бесплатный период) и попробуй собрать лендинг за 1 вечер!</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 text-slate-500 border-t border-slate-800">
+        <p>Стартап Академия • Этап 2 • 2026</p>
+    </footer>
+<!-- Видео-уроки: YouTube embeds -->
+<section class="mb-20">
+    <h2 class="text-4xl font-bold text-center mb-12 text-blue-400">Видео-уроки: Начни с No-Code за 1 вечер</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Webflow: Быстрый старт (2025) -->
+        <div class="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 shadow-lg">
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe 
+                    src="https://www.youtube.com/embed/a0GOdNNRA1U" 
+                    title="Как сделать сайт без кода в Webflow за 20 минут (2025)" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen 
+                    class="w-full h-full">
+                </iframe>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Webflow: Сайт за 20 минут (2025)</h3>
+                <p class="text-slate-400 text-sm">Перенос дизайна из Figma → Webflow. Идеально для первого проекта.</p>
+            </div>
+        </div>
+
+        <!-- Webflow: Полный курс (бесплатный, универсальный сайт) -->
+        <div class="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 shadow-lg">
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe 
+                    src="https://www.youtube.com/embed/E6VBS95mTp8" 
+                    title="БЕСПЛАТНЫЙ курс по Webflow 2025 — универсальный сайт" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen 
+                    class="w-full h-full">
+                </iframe>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Webflow: Полный бесплатный курс 2025</h3>
+                <p class="text-slate-400 text-sm">От А до Я: создаём красивый сайт в одном видео.</p>
+            </div>
+        </div>
+
+        <!-- Framer: С нуля (верстка сайта) -->
+        <div class="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 shadow-lg">
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe 
+                    src="https://www.youtube.com/embed/3tPnGo_attU" 
+                    title="Framer с нуля — принцип верстки сайта" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen 
+                    class="w-full h-full">
+                </iframe>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Framer с нуля: Верстка сайта</h3>
+                <p class="text-slate-400 text-sm">Основы для новичков — отличный старт в 2026.</p>
+            </div>
+        </div>
+
+        <!-- Bubble: С нуля до про (часть 1) -->
+        <div class="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 shadow-lg">
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe 
+                    src="https://www.youtube.com/embed/ERSriusJyHI" 
+                    title="Обучение Bubble.io с нуля до про — Часть 1" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen 
+                    class="w-full h-full">
+                </iframe>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Bubble: Полный курс для начинающих</h3>
+                <p class="text-slate-400 text-sm">Создаём приложение без кода — база + логика.</p>
+            </div>
+        </div>
+
+        <!-- Webflow CMS 2025: Гайд по коллекциям -->
+        <div class="bg-slate-800 rounded-3xl overflow-hidden border border-slate-700 shadow-lg">
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe 
+                    src="https://www.youtube.com/embed/jYAUPO0Wig4" 
+                    title="Webflow CMS 2025: Полный гайд по коллекциям" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen 
+                    class="w-full h-full">
+                </iframe>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Webflow CMS 2025: Блоги и портфолио</h3>
+                <p class="text-slate-400 text-sm">Динамический контент без кода — must-have для стартапа.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center mt-12">
+        <p class="text-slate-400">Хочешь больше уроков? Подпишись на каналы: "Фриланс прокачка", "nocode монстр", "Metics Media" и официальные каналы Webflow/Framer/Bubble.</p>
+    </div>
+    <script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '69691a2a690bb46ec57a9014' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
+</section>
+</body>
+</html>

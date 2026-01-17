@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript с нуля • Оживи свой код • 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            border: 1px solid #444;
+        }
+        .highlight { color: #facc15; font-weight: bold; }
+        .tip { border-left: 4px solid #facc15; padding-left: 1rem; }
+
+        /* Стили для видео (Исправлено) */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 2px solid #facc15;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Стили для флешкарт */
+        .flashcard-container {
+            perspective: 1000px;
+            height: 220px;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #b45309, #f59e0b);
+            border: 2px solid #fbbf24;
+            color: #000;
+        }
+        .flashcard-back {
+            background: #1e293b;
+            color: #f1f5f9;
+            transform: rotateY(180deg);
+            border: 2px solid #facc15;
+            flex-direction: column;
+        }
+        .scroll-cards {
+            max-height: 650px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        .scroll-cards::-webkit-scrollbar { width: 6px; }
+        .scroll-cards::-webkit-scrollbar-thumb { background: #facc15; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-slate-950 to-slate-900 text-slate-100 min-h-screen font-sans">
+
+    <nav class="p-6 max-w-6xl mx-auto flex justify-between items-center border-b border-slate-800">
+        <a href="css_lesson.html" class="text-amber-400 hover:text-amber-300 font-medium flex items-center">
+            ← Назад к CSS
+        </a>
+        <div class="px-4 py-1 bg-slate-800 rounded-full text-sm text-amber-300 border border-amber-900/50">
+            JavaScript (JS)
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto p-6 pt-10">
+
+        <header class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 bg-clip-text text-transparent">
+                JavaScript — Интеллект сайта
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
+                Учимся программировать логику, работать с данными и кликами
+            </p>
+        </header>
+
+        <section class="mb-16 bg-slate-800/70 border border-amber-900/50 rounded-3xl p-8 md:p-12">
+            <h2 class="text-4xl font-bold mb-6 text-amber-400 text-center">Не всё сразу, но постепенно</h2>
+            <p class="text-lg text-slate-300 mb-6 text-center">
+                Самый понятный и полный обзор JavaScript для абсолютных новичков.
+            </p>
+
+            <div class="video-wrapper shadow-2xl">
+                <iframe 
+                    src="https://www.youtube.com/embed/lfmg-EJ8gm4" 
+                    title="Learn JS in 1 hour 🌎 — Bro Code" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section class="mb-20 bg-slate-800/70 border border-amber-900/50 rounded-3xl p-8 md:p-12">
+            <h2 class="text-4xl font-bold mb-10 text-amber-400 text-center">Основы логики</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-amber-300 mb-4 text-center">JS Флешкарты</h3>
+                    <div class="scroll-cards space-y-8" id="js-cards-container">
+                        </div>
+                </div>
+
+                <div class="space-y-6 text-lg text-slate-200 leading-relaxed">
+                    <div class="tip">
+                        <p><strong>JavaScript</strong> — это мозг сайта. Он обрабатывает клики, считает данные и делает страницу живой.</p>
+                    </div>
+
+                    <h4 class="text-xl font-bold text-amber-300 mt-6">Базовый синтаксис:</h4>
+                    <div class="code-block text-sm">
+<span class="text-purple-400">let</span> name = <span class="text-green-400">"Аня"</span>; <span class="text-slate-500">// Переменная</span>
+<span class="text-purple-400">function</span> <span class="text-blue-400">sayHello</span>() {
+  <span class="text-blue-400">alert</span>(<span class="text-green-400">"Привет, "</span> + name);
+}
+                    </div>
+
+                    <h4 class="text-xl font-bold text-amber-300 mt-6">Подключение:</h4>
+                    <p class="text-base text-slate-300">
+                        Скрипт вставляется перед закрывающим тегом <code>&lt;/body&gt;</code>:
+                    </p>
+                    <code class="text-amber-200 bg-slate-900 p-2 rounded">&lt;script src="script.js"&gt;&lt;/script&gt;</code>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20 bg-slate-900 p-8 rounded-3xl border border-slate-700">
+            <h2 class="text-3xl font-bold mb-6 text-center text-orange-400">Твой первый скрипт</h2>
+            <div class="code-block">
+console.log("Код работает!");
+alert("Привет из JavaScript!");
+            </div>
+        </section>
+
+    </main>
+    <script type="text/javascript">
+  (function(d, t) {
+      var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      v.onload = function() {
+        window.voiceflow.chat.load({
+          verify: { projectID: '69691a2a690bb46ec57a9014' },
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production',
+          voice: {
+            url: "https://runtime-api.voiceflow.com"
+          }
+        });
+      }
+      v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>
+    <script>
+        const jsCards = [
+            { q: "Как создать переменную?", a: "Используй let или const (например: let x = 5;)" },
+            { q: "Как вывести сообщение в окне?", a: "Функция alert('Привет!');" },
+            { q: "Как вывести данные в консоль?", a: "console.log(данные);" },
+            { q: "Что такое функция?", a: "Блок кода, который можно вызывать многократно." },
+            { q: "Как написать условие?", a: "if (условие) { ... } else { ... }" },
+            { q: "Что такое массив?", a: "Список данных: let list = [1, 2, 3];" },
+            { q: "Тип данных для текста?", a: "String (строка), пишется в кавычках." },
+            { q: "Тип данных для чисел?", a: "Number (число)." },
+            { q: "Как получить элемент из HTML?", a: "document.querySelector('.class');" },
+            { q: "Как отследить клик мышкой?", a: "element.addEventListener('click', ...);" },
+            { q: "Что такое объект?", a: "Набор данных {ключ: значение}." },
+            { q: "Как изменить текст в HTML через JS?", a: "element.textContent = 'Новый текст';" },
+            { q: "Для чего нужен цикл for?", a: "Чтобы повторить код несколько раз." },
+            { q: "В чем разница между let и const?", a: "let можно менять, const — это константа (нельзя)." },
+            { q: "Что такое DOM?", a: "Это структура HTML-страницы, доступная для JS." }
+        ];
+
+        const container = document.getElementById('js-cards-container');
+
+        jsCards.forEach((data, index) => {
+            const card = document.createElement('div');
+            card.className = 'flashcard-container';
+            card.innerHTML = `
+                <div class="flashcard-inner" onclick="this.classList.toggle('is-flipped')">
+                    <div class="flashcard-front font-bold text-lg text-slate-900">
+                        JS №${index + 1}: ${data.q}
+                    </div>
+                    <div class="flashcard-back">
+                        <p class="font-bold text-amber-400 mb-2">Ответ:</p>
+                        <p class="text-lg px-4">${data.a}</p>
+                        <p class="mt-4 text-xs text-slate-500 italic">Нажми, чтобы перевернуть</p>
+                    </div>
+                </div>
+                <div class="text-center mt-2 text-amber-500 font-bold">➡️</div>
+            `;
+            container.appendChild(card);
+        });
+
+    
+    </script>
+</body>
+</html>

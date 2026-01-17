@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маркетинг + Нейромаркетинг: Полный гид</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Стили для флешкарт */
+        .flashcard-container {
+            perspective: 1000px;
+            height: 200px;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            text-align: center;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #4f46e5, #9333ea);
+            border: 2px solid #c084fc;
+            color: white;
+            font-weight: bold;
+        }
+        .flashcard-back {
+            background: #1e293b;
+            color: #f1f5f9;
+            transform: rotateY(180deg);
+            border: 2px solid #818cf8;
+            flex-direction: column;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans pb-20">
+
+   <nav class="p-6 max-w-6xl mx-auto flex justify-between items-center border-b border-slate-800">
+        <a href="js_lesson.html" class="text-amber-400 hover:text-amber-300 font-medium flex items-center">
+            ← Назад к JS
+        </a>
+        <div class="px-4 py-1 bg-slate-800 rounded-full text-sm text-amber-300 border border-amber-900/50">
+            Познание структуру маркетинга
+        </div>
+    </nav>
+    <main class="max-w-6xl mx-auto p-6">
+
+        <header class="text-center my-16">
+            <h1 class="text-5xl md:text-7xl font-black mb-6">
+                Маркетинг <span class="text-indigo-500">&</span> Нейро
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                Почему люди говорят одно, а покупают другое? Разбираем связь традиционных методов и науки о мозге.
+            </p>
+        </header>
+<section class="mb-20 grid lg:grid-cols-2 gap-10">
+    
+    <div class="glass-panel p-6 rounded-3xl shadow-xl" style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+        <h3 class="text-xl font-bold mb-4 text-blue-400">1. Основы маркетинга (Ф. Котлер)</h3>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem;">
+            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                src="https://www.youtube.com/embed/F6b0VFltDAs" frameborder="0" allowfullscreen>
+            </iframe>
+        </div>
+        <p class="mt-4 text-sm text-slate-400 italic">Базовые понятия: нужды, запросы и 4P маркетинга.</p>
+    </div>
+
+    <div class="glass-panel p-6 rounded-3xl shadow-xl" style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255, 255, 255, 0.1);">
+        <h3 class="text-xl font-bold mb-4 text-pink-400">2. 63 убийственные стратегии</h3>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1rem;">
+            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                src="https://www.youtube.com/embed/oJ8TfnvrrLs" frameborder="0" allowfullscreen>
+            </iframe>
+        </div>
+        <p class="mt-4 text-sm text-slate-400 italic">Практические приемы захвата внимания и психология продаж.</p>
+    </div>
+
+</section>
+        <section class="grid md:grid-cols-2 gap-8 mb-20">
+            <div class="glass-panel p-8 rounded-3xl border-t-4 border-blue-500">
+                <div class="text-4xl mb-4">📝</div>
+                <h2 class="text-2xl font-bold text-blue-400 mb-4">Маркетинг (Сознание)</h2>
+                <p class="text-slate-300 mb-6 italic">"Что клиент думает, что он хочет?"</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">✅ Опросы и интервью</li>
+                    <li class="flex items-center">✅ Изучение демографии (возраст, пол)</li>
+                    <li class="flex items-center">✅ Работа с логикой и ценой</li>
+                    <li class="flex items-center">✅ Создание имиджа бренда</li>
+                </ul>
+            </div>
+
+            <div class="glass-panel p-8 rounded-3xl border-t-4 border-pink-500">
+                <div class="text-4xl mb-4">🧠</div>
+                <h2 class="text-2xl font-bold text-pink-400 mb-4">Нейро (Подсознание)</h2>
+                <p class="text-slate-300 mb-6 italic">"Как мозг реально реагирует?"</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">✅ Анализ активности мозга (ЭЭГ)</li>
+                    <li class="flex items-center">✅ Айтрекинг (куда смотрит глаз)</li>
+                    <li class="flex items-center">✅ Эмоциональный отклик (пульс)</li>
+                    <li class="flex items-center">✅ Работа с инстинктами</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="mb-20 glass-panel p-10 rounded-3xl text-center border-indigo-500/30">
+            <h2 class="text-3xl font-bold mb-10">Как они работают в связке?</h2>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="w-full">
+                    <div class="bg-blue-900/30 p-4 rounded-xl border border-blue-500/50">
+                        <p class="font-bold">МАРКЕТИНГ</p>
+                        <p class="text-sm text-slate-400 text-sm">Создает гипотезу: "Эта реклама понравится мамам"</p>
+                    </div>
+                </div>
+                <div class="text-3xl text-indigo-500">➕</div>
+                <div class="w-full">
+                    <div class="bg-pink-900/30 p-4 rounded-xl border border-pink-500/50">
+                        <p class="font-bold">НЕЙРО</p>
+                        <p class="text-sm text-slate-400">Проверяет: "На самом деле на 5-й секунде они чувствуют скуку"</p>
+                    </div>
+                </div>
+                <div class="text-3xl text-indigo-500">⬇️</div>
+                <div class="w-full">
+                    <div class="bg-green-900/30 p-4 rounded-xl border border-green-500/50">
+                        <p class="font-bold">РЕЗУЛЬТАТ</p>
+                        <p class="text-sm text-slate-400">Идеальный продукт, бьющий точно в цель</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="text-3xl font-bold mb-10 text-center">Главные инструменты и приемы</h2>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="cards-container">
+            </div>
+
+    </main>
+
+    <script>
+        const combinedData = [
+            { q: "Айтрекинг (Eye Tracking)", a: "Показывает 'тепловую карту' внимания. Связывает дизайн и реальный взгляд покупателя." },
+            { q: "Психология цвета", a: "Связывает визуальный маркетинг и биологические реакции (синий = доверие, желтый = радость)." },
+            { q: "Якорение цен", a: "Маркетинговый ход, когда высокая цена делает среднюю цену 'выгодной' для мозга." },
+            { q: "ЭЭГ исследования", a: "Связывает сценарий рекламы и уровень вовлеченности мозга в реальном времени." },
+            { q: "Эффект дефицита", a: "Инстинкт выживания: мозг боится упустить ресурс, что заставляет покупать быстрее." },
+            { q: "Детекция эмоций", a: "Камеры считывают микро-мимику, проверяя, правдивы ли отзывы клиентов о товаре." }
+        ];
+
+        const container = document.getElementById('cards-container');
+
+        combinedData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'flashcard-container';
+            card.innerHTML = `
+                <div class="flashcard-inner" onclick="this.classList.toggle('is-flipped')">
+                    <div class="flashcard-front">
+                        ${item.q}
+                    </div>
+                    <div class="flashcard-back">
+                        <p class="text-indigo-400 font-bold mb-2">Связь:</p>
+                        <p class="text-sm">${item.a}</p>
+                        <p class="mt-4 text-[10px] text-slate-500 uppercase tracking-widest italic">Нажми, чтобы перевернуть</p>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    </script>
+    <section class="max-w-5xl mx-auto my-16 px-6">
+    <div class="glass-panel p-8 md:p-12 rounded-[2.5rem] border border-slate-700/50 shadow-2xl" style="background: rgba(15, 23, 42, 0.9);">
+        
+        <h2 class="text-3xl font-bold mb-10 bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent">
+            Мои мысли и база знаний:
+        </h2>
+
+        <div class="space-y-12">
+            
+            <div>
+                <h3 class="text-xl font-semibold text-indigo-400 mb-4 flex items-center">
+                    <span class="mr-3">01.</span> С чего на самом деле начинается маркетинг
+
+                </h3>
+                <div class="text-slate-300 leading-relaxed text-lg border-l-2 border-slate-800 pl-6">
+                   Маркетинг начинается не с рекламы и не с контента, а с чёткого понимания, какую именно проблему ты решаешь и для кого. Пока ты думаешь в логике «что я продаю», ты будешь конкурировать ценой и терять клиентов. Как только начинаешь думать в логике «что человек хочет изменить в своей жизни», ты начинаешь продавать ценность, а не товар. Люди почти никогда не покупают продукт — они покупают спокойствие, уверенность, экономию времени, ощущение контроля или роста. Поэтому сильный маркетинг — это когда каждое твоё сообщение говорит не о тебе, а о них: об их страхах, сомнениях, стыде, усталости, желаниях выглядеть лучше, быть умнее, зарабатывать больше, не чувствовать себя хуже других.
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-semibold text-pink-400 mb-4 flex items-center">
+                    <span class="mr-3">02.</span> Почему продажи — это процесс, а не момент
+                </h3>
+                <div class="text-slate-300 leading-relaxed text-lg border-l-2 border-slate-800 pl-6">
+                    Вторая вещь, которую почти все игнорируют, — это то, что продажи не происходят в момент контакта, а происходят в процессе. Человек редко готов купить сразу, даже если ему интересно. Ему нужно сначала понять, кто ты, можно ли тебе доверять, не обманут ли его, не зря ли он потратит деньги. Поэтому настоящий маркетинг — это не «выложил пост и жду», а выстроенный путь: сначала ты привлекаешь внимание пользой или смыслом, потом показываешь, что разбираешься в теме, потом даёшь почувствовать, что понимаешь его ситуацию, потом только предлагаешь решение. Когда этого пути нет, ты постоянно зависишь от удачи. Когда он есть, продажи становятся предсказуемыми.
+
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-semibold text-emerald-400 mb-4 flex items-center">
+                    <span class="mr-3">03.</span> Как цена формирует отношение к бренду
+                </h3>
+                <div class="text-slate-300 leading-relaxed text-lg border-l-2 border-slate-800 pl-6">
+                    Цена в этом всём — не просто цифра, а мощный инструмент влияния. Люди не умеют оценивать ценность в вакууме, они оценивают её в сравнении. Поэтому профессиональный маркетинг всегда работает с восприятием: через пакеты, уровни, дополнительные опции, ограничения по времени, акценты на выгоде. Когда человек видит не просто стоимость, а контекст выбора, он перестаёт торговаться и начинает выбирать осознанно. Дешёвая цена редко продаёт лучше — чаще она снижает доверие и притягивает не тех клиентов.
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-semibold text-emerald-400 mb-4 flex items-center">
+                    <span class="mr-3">04.</span> Почему сегодня побеждает доверие, а не реклама
+                </h3>
+                <div class="text-slate-300 leading-relaxed text-lg border-l-2 border-slate-800 pl-6">
+                    Отдельная реальность 2026 года — это доверие. Его уже не покупают рекламой. Его строят через последовательность, честность и присутствие. Люди хотят видеть, как ты работаешь, как думаешь, какие решения принимаешь, какие ошибки признаёшь. Чем больше ты живой и понятный, тем меньше у клиента внутреннего сопротивления. Поэтому сейчас выигрывают не те, у кого самые красивые баннеры, а те, у кого понятная позиция и человеческое лицо.
+                </div>
+            </div>
+
+
+            <div class="mt-12 p-6 rounded-2xl bg-gradient-to-br from-indigo-900/40 to-slate-900 border border-indigo-500/30">
+                <p class="text-indigo-100 italic text-center">
+                    И последнее, что отличает взрослый маркетинг от любительского, — это цифры. Пока ты ориентируешься на ощущения, тебе всегда будет казаться, что «что-то не работает». Когда ты считаешь, сколько стоит один клиент, сколько он приносит, где люди уходят и где остаются, маркетинг перестаёт быть лотереей и становится управляемой системой. Ты перестаёшь гадать и начинаешь принимать решения на основе фактов. Именно в этот момент маркетинг превращается из хаоса в инструмент роста.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

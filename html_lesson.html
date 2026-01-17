@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML с нуля • Начни здесь • 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .code-block {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            border: 1px solid #334155;
+        }
+        .highlight { color: #c084fc; font-weight: bold; }
+        .tip { border-left: 4px solid #a78bfa; padding-left: 1rem; }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 2px solid #6d28d9;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Стили для интерактивных флешкарт */
+        .flashcard-container {
+            perspective: 1000px;
+            height: 250px;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #4c1d95, #7c3aed);
+            border: 2px solid #a78bfa;
+        }
+        .flashcard-back {
+            background: #1e293b;
+            color: #f1f5f9;
+            transform: rotateY(180deg);
+            border: 2px solid #ec4899;
+            flex-direction: column;
+        }
+        .scroll-cards {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        .scroll-cards::-webkit-scrollbar { width: 6px; }
+        .scroll-cards::-webkit-scrollbar-thumb { background: #4c1d95; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-slate-950 to-slate-900 text-slate-100 min-h-screen font-sans">
+
+    <nav class="p-6 max-w-6xl mx-auto flex justify-between items-center border-b border-slate-800">
+        <a href="nocode.html" class="text-purple-400 hover:text-purple-300 font-medium flex items-center">
+            ← Назад к no-code
+        </a>
+        <div class="px-4 py-1 bg-slate-800 rounded-full text-sm text-purple-300 border border-purple-900/50">
+            HTML 
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto p-6 pt-10">
+
+        <header class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
+                HTML с нуля — начни прямо сейчас
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto leading-relaxed">
+                За 30–60 минут ты поймёшь, как устроены все сайты в интернете
+            </p>
+        </header>
+
+        <section class="mb-16 bg-slate-800/70 border border-purple-900/50 rounded-3xl p-8 md:p-12">
+            <h2 class="text-4xl font-bold mb-6 text-purple-400 text-center">Не всё сразу но постепенно </h2>
+            <p class="text-lg text-slate-300 mb-6 text-center">
+                Самый понятный и полный обзор HTML для абсолютных новичков.  
+                Автор — Bro Code. Смотри с таймкодами, повторяй за ним в своём редакторе.
+            </p>
+
+            <div class="video-wrapper shadow-2xl">
+                <iframe 
+                    src="https://www.youtube.com/embed/HD13eq_Pmp8" 
+                    title="Learn HTML in 1 hour 🌎 — Bro Code" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <section class="mb-20 bg-slate-800/70 border border-purple-900/50 rounded-3xl p-8 md:p-12">
+            <h2 class="text-4xl font-bold mb-10 text-purple-400 text-center">Что такое HTML? (Практика и теория)</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-pink-400 mb-4 text-center">Флешкарты (нажми, чтобы перевернуть)</h3>
+                    <div class="scroll-cards space-y-8" id="cards-container">
+                        </div>
+                    <p class="text-center text-slate-500 text-sm">Листай вниз, там 15 карточек ⬇️</p>
+                </div>
+
+                <div class="space-y-6 text-lg text-slate-200 leading-relaxed">
+                    <div class="tip">
+                        <p><strong>HTML</strong> — это скелет любого сайта. Он говорит браузеру: «Здесь заголовок, здесь текст, здесь кнопка».</p>
+                    </div>
+
+                    <p>Как конструктор: теги — это кирпичики.</p>
+                    <ul class="list-disc pl-8 space-y-3">
+                        <li><code>&lt;h1&gt;...&lt;/h1&gt;</code> — большой заголовок</li>
+                        <li><code>&lt;p&gt;...&lt;/p&gt;</code> — абзац текста</li>
+                        <li><code>&lt;img src="..."&gt;</code> — картинка</li>
+                        <li><code>&lt;a href="..."&gt;...&lt;/a&gt;</code> — ссылка</li>
+                    </ul>
+
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-purple-800/40 mt-6 text-center">
+                        <p class="text-purple-300 font-medium mb-2">Главное правило:</p>
+                        <p class="text-2xl font-mono">&lt;тег&gt; содержимое &lt;/тег&gt;</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <h2 class="text-4xl font-bold mb-10 text-center text-pink-400">Шаг 1 — Создай первую страницу за 2 минуты</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <p class="text-xl text-slate-300 mb-6">
+                        1. Открой VS Code<br>
+                        2. Скопируй код ниже<br>
+                        3. Сохрани как <strong>hello.html</strong><br>
+                        4. Открой в браузере
+                    </p>
+                </div>
+                <div>
+                    <div class="code-block text-base">
+<span class="highlight">&lt;!DOCTYPE html&gt;</span>
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Моя первая страница&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 style="color: #c084fc;"&gt;Привет, мир! 🌍&lt;/h1&gt;
+    &lt;p&gt;Я создал свой первый файл!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 bg-slate-800/60 border border-slate-700 rounded-3xl p-8 text-center">
+             <h2 class="text-4xl font-bold mb-8 text-pink-400">Готов отправить свою работу?</h2>
+             <a href="#" class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-5 px-12 rounded-xl text-xl shadow-xl transition transform hover:scale-105">
+                 Отправить свою первую HTML-страницу →
+             </a>
+        </section>
+
+    </main>
+
+    <script>
+        // Данные для 15 флешкарт
+        const cardsData = [
+            { q: "Что идет в первой строке HTML5?", a: "Тег <!DOCTYPE html>" },
+            { q: "Где лежит заголовок вкладки?", a: "Внутри <head> в теге <title>" },
+            { q: "Тег для жирного важного текста?", a: "Тег <strong>" },
+            { q: "Как создать ссылку?", a: "Тег <a href='url'>текст</a>" },
+            { q: "Обязательный атрибут для картинок?", a: "Атрибут alt (описание)" },
+            { q: "Нумерованный список - это...", a: "Тег <ol> и внутри <li>" },
+            { q: "Тег для переноса строки?", a: "Одиночный тег <br>" },
+            { q: "Поле для ввода текста?", a: "<input type='text'>" },
+            { q: "Тег для обычной кнопки?", a: "Тег <button>" },
+            { q: "Универсальный блочный контейнер?", a: "Тег <div>" },
+            { q: "Тег для строки в таблице?", a: "Тег <tr> (table row)" },
+            { q: "Как подключить CSS файл?", a: "<link rel='stylesheet' href='...'>" },
+            { q: "Текст-подсказка внутри input?", a: "Атрибут placeholder" },
+            { q: "Разница между div и span?", a: "div - блок, span - строка" },
+            { q: "Как написать комментарий?", a: "" }
+        ];
+
+        const container = document.getElementById('cards-container');
+
+        cardsData.forEach((data, index) => {
+            const card = document.createElement('div');
+            card.className = 'flashcard-container';
+            card.innerHTML = `
+                <div class="flashcard-inner" onclick="this.classList.toggle('is-flipped')">
+                    <div class="flashcard-front font-bold text-lg">
+                        №${index + 1}: ${data.q}
+                    </div>
+                    <div class="flashcard-back">
+                        <p class="font-bold text-pink-400 mb-2">Ответ:</p>
+                        <p class="text-lg">${data.a}</p>
+                        <p class="mt-4 text-xs text-slate-400">Нажми, чтобы вернуть</p>
+                    </div>
+                </div>
+                <div class="text-center mt-2 text-purple-500">➡️</div>
+            `;
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>

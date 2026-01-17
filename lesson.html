@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стартап Школа: Интенсив</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .flash-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .flash-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal.active { display: flex; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-sans border-t-4 border-blue-500">
+
+    <nav class="p-6 max-w-6xl mx-auto flex justify-between items-center">
+        <a href="index.html" class="text-blue-400 hover:text-blue-300 font-medium flex items-center">
+            <span class="mr-2">←</span> В кабинет
+        </a>
+        <div class="px-4 py-1 bg-slate-800 rounded-full text-xs text-slate-400 border border-slate-700">
+            <a href="stage2.html" class="text-blue-400 hover:text-blue-300 font-medium flex items-center">
+            <span class="mr-2">-></span> на Этап 2 
+        </a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-6">
+        
+        <section class="mb-20">
+            <h1 class="text-4xl font-extrabold mb-8 text-white">Урок 1: Как найти и проверить идею</h1>
+            
+            <div class="grid lg:grid-cols-2 gap-10 items-start">
+                <div class="aspect-video bg-black rounded-3xl overflow-hidden shadow-2xl border border-slate-700">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/EUH3ZX0SbNA" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 shadow-xl">
+                    <h2 class="text-xl font-bold mb-4 text-blue-400">База стартапера:</h2>
+                    <ul class="space-y-4 text-slate-300">
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">🎯</span> <strong>MVP:</strong> Продукт с 1 функцией, собранный «на коленке».</li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">🗣️</span> <strong>CustDev:</strong> Интервью. Сначала узнаем боль, потом строим решение.</li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2">🔄</span> <strong>Pivot:</strong> Резкая смена курса, если идея «не зашла».</li>
+                        <li class="flex item-start"><span class="text-blue-500 mr-2">💸</span> <strong>​Unit-экономика:</strong> Расчет того, сколько вы тратите на привлечение одного клиента и сколько он приносит вам денег.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-800 mb-20">
+
+        <section class="mb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                    Выбери свое направление
+                </h2>
+                <p class="text-slate-400 text-lg">Нажми на карточку, чтобы изучить нишу и выбрать направление для стартапа.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div onclick="openModal('it')" class="flash-card bg-blue-600 p-8 rounded-3xl text-center">
+                    <div class="text-4xl mb-4">💻</div>
+                    <h2 class="text-xl font-bold">IT Сфера</h2>
+                </div>
+                <div onclick="openModal('business')" class="flash-card bg-amber-500 p-8 rounded-3xl text-center text-slate-900">
+                    <div class="text-4xl mb-4">💼</div>
+                    <h2 class="text-xl font-bold">Бизнес и Сервис</h2>
+                </div>
+                <div onclick="openModal('art')" class="flash-card bg-pink-600 p-8 rounded-3xl text-center">
+                    <div class="text-4xl mb-4">🎨</div>
+                    <h2 class="text-xl font-bold">Art & Design</h2>
+                </div>
+                <div onclick="openModal('green')" class="flash-card bg-emerald-600 p-8 rounded-3xl text-center text-slate-900">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h2 class="text-xl font-bold">Green Tech</h2>
+                </div>
+                <div onclick="openModal('social')" class="flash-card bg-orange-500 p-8 rounded-3xl text-center">
+                    <div class="text-4xl mb-4">🤝</div>
+                    <h2 class="text-xl font-bold">Соц. стартапы</h2>
+                </div>
+                <div onclick="openModal('biotech')" class="flash-card bg-indigo-600 p-8 rounded-3xl text-center">
+                    <div class="text-4xl mb-4">🧬</div>
+                    <h2 class="text-xl font-bold">Биотех</h2>
+                </div>
+                <div onclick="openModal('fintech')" class="flash-card bg-yellow-400 p-8 rounded-3xl text-center text-slate-900">
+                    <div class="text-4xl mb-4">💳</div>
+                    <h2 class="text-xl font-bold">Финтех</h2>
+                </div>
+                <div onclick="openModal('ecommerce')" class="flash-card bg-purple-600 p-8 rounded-3xl text-center">
+                    <div class="text-4xl mb-4">🛒</div>
+                    <h2 class="text-xl font-bold">E-commerce</h2>
+                </div>
+            </div>
+        </section>
+        
+    <section>
+        <h1 class="text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent"> 
+            С консультируйтесь с нашим ИИ ментором 
+        </h1>
+        <h2 class="text-blue-150"> 
+            Наш ИИ ментор был создан под ваш интерес и будет помогать вам во всем, задавая вопросы и кидая идеи 
+        </h2>
+
+    </section>
+        <section class="bg-slate-800 border border-slate-700 p-10 rounded-[40px] mb-20">
+    <h2 class="text-3xl font-extrabold mb-6 text-center text-blue-400">
+        Валидация идеи + ИИ-ментор
+    </h2>
+    <p class="text-slate-400 text-center mb-10">
+        Ответь на вопросы — мы поймём, насколько твоя идея готова к развитию.
+    </p>
+
+    <form id="startupSurvey" class="space-y-8 max-w-3xl mx-auto">
+
+        <!-- Вопрос 1 -->
+        <div>
+            <p class="font-bold mb-3">1. На каком этапе сейчас твоя идея?</p>
+            <div class="space-y-2 text-slate-300">
+                <label><input type="radio" name="stage" value="idea"> Только идея</label><br>
+                <label><input type="radio" name="stage" value="desc"> Уже есть описание</label><br>
+                <label><input type="radio" name="stage" value="tested"> Тестировал(а) на людях</label><br>
+                <label><input type="radio" name="stage" value="orders"> Есть первые заказы</label>
+            </div>
+        </div>
+
+        <!-- Вопрос 2 -->
+        <div>
+            <p class="font-bold mb-3">2. Пользовался(ась) ли ты ИИ-ментором?</p>
+            <div class="space-y-2 text-slate-300">
+                <label><input type="radio" name="ai" value="yes"> Да</label><br>
+                <label><input type="radio" name="ai" value="no"> Пока нет</label>
+            </div>
+        </div>
+
+        <!-- Вопрос 3 -->
+        <div>
+            <p class="font-bold mb-3">3. Чем помог ИИ-ментор?</p>
+            <div class="space-y-2 text-slate-300">
+                <label><input type="checkbox" name="help" value="idea"> Сформулировать идею</label><br>
+                <label><input type="checkbox" name="help" value="audience"> Определить аудиторию</label><br>
+                <label><input type="checkbox" name="help" value="offer"> Сделать оффер</label><br>
+                <label><input type="checkbox" name="help" value="plan"> Составить план</label>
+            </div>
+        </div>
+
+        <!-- Вопрос 4 -->
+        <div>
+            <p class="font-bold mb-3">4. Насколько ты уверен(а) в своей идее?</p>
+            <select class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700">
+                <option>1 — совсем не уверен</option>
+                <option>2 — сомневаюсь</option>
+                <option>3 — средне</option>
+                <option>4 — уверен</option>
+                <option>5 — полностью уверен</option>
+            </select>
+        </div>
+
+        <!-- Вопрос 5 -->
+        <div>
+            <p class="font-bold mb-3">5. Какую проблему решает твой стартап?</p>
+            <textarea rows="3" placeholder="Опиши коротко..."
+                class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700"></textarea>
+        </div>
+
+        <!-- Кнопка -->
+        <div class="text-center pt-6">
+            <button type="button" onclick="submitSurvey()"
+                class="bg-blue-600 px-10 py-4 rounded-2xl font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-600/30">
+                Отправить ответы
+            </button>
+        </div>
+
+    </form>
+</section>
+       
+    </main>
+
+    <div id="infoModal" class="modal" onclick="closeModal()">
+        <div class="bg-white text-slate-900 max-w-lg w-full p-10 rounded-[40px] shadow-2xl relative" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-900 text-3xl">&times;</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <div id="ai-coach-bubble" onclick="toggleChat()" style="position: fixed; bottom: 30px; right: 30px; background: #3b82f6; color: white; padding: 18px 28px; border-radius: 100px; cursor: pointer; z-index: 1000; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4); font-weight: bold;">
+        💼 Strategy Coach
+    </div>
+
+    <script>
+        // ДАННЫЕ СФЕР
+        const data = {
+            it: { title: "IT Сфера", stat: "500k+ идей/год", peak: "AI-кодинг и кибербезопасность.", funFact: "Первый баг был реальным мотыльком в реле." },
+            business: { title: "Business & Service", stat: "80% успеха — сервис", peak: "Экономика подписок на бытовые услуги.", funFact: "Airbnb начинали с продажи коробок сухих завтраков." },
+            art: { title: "Art & Design", stat: "Миллионы в NFT", peak: "AR-галереи и генеративный дизайн.", funFact: "ИИ-картина ушла с молотка за $432k." },
+            green: { title: "Green Tech", stat: "+200% инвестиций", peak: "Материалы из грибов и океанского пластика.", funFact: "Бумага из слоновьего навоза — реальный прибыльный эко-стартап." },
+            social: { title: "Social Startup", stat: "Меняют мир", peak: "Платформы для шеринга ресурсов в бедных районах.", funFact: "Стартап 'Invisible Cities' нанимает бездомных гидами." },
+            biotech: { title: "Биотех", stat: "Жизнь до 120 лет", peak: "3D-биопечать органов.", funFact: "Чипы под кожей уже заменяют ключи от офисов в Швеции." },
+            fintech: { title: "Финтех", stat: "Кэш исчезает", peak: "DeFi и крипто-банкинг для детей.", funFact: "В Китае можно платить 'лицом' даже в сельских лавках." },
+            ecommerce: { title: "E-commerce", stat: "200k покупок/сек", peak: "Живые стрим-продажи в TikTok стиле.", funFact: "Amazon сначала хотел называться 'Relentless' (Безжалостный)." }
+        };
+
+        function openModal(sphere) {
+            const content = data[sphere];
+            document.getElementById('modalContent').innerHTML = `
+                <h2 class="text-3xl font-black mb-6 text-slate-900">${content.title}</h2>
+                <div class="space-y-6 text-lg">
+                    <p>📊 <span class="text-slate-500">Статистика:</span> <strong>${content.stat}</strong></p>
+                    <p>🔥 <span class="text-slate-500">Пик идеи:</span> <strong>${content.peak}</strong></p>
+                    <div class="bg-blue-50 p-6 rounded-3xl italic text-blue-900 text-base border border-blue-100">
+                        🚀 <strong>Факт:</strong> ${content.funFact}
+                    </div>
+                </div>
+                <button onclick="selectSphere('${content.title}')" class="mt-8 w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 shadow-lg transition">Выбрать эту сферу</button>
+            `;
+            document.getElementById('infoModal').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('infoModal').classList.remove('active'); }
+
+        function selectSphere(name) {
+            alert("Выбрана сфера: " + name + ". Расскажите об этом Strategy Coach!");
+            closeModal();
+            toggleChat(); // Автоматически открываем чат
+        }
+
+        // VOICEFLOW INTEGRATION
+        (function(d, t) {
+            var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+            v.onload = function() {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '6966285e5660bdd8c0521418' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production'
+                });
+            }
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+
+         
+
+        function toggleChat() {
+            if (window.voiceflow && window.voiceflow.chat) { window.voiceflow.chat.open(); }
+        }
+    </script>
+</body>
+</html>

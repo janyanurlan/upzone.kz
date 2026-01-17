@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Этап 2 | Создание продукта</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .topic-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-sans">
+
+    <nav class="p-6 max-w-6xl mx-auto flex justify-between items-center">
+        <a href="index.html" class="text-blue-400 hover:text-blue-300 font-medium flex items-center">
+            <span class="mr-2">←</span> В кабинет
+        </a>
+        <div class="px-4 py-1 bg-slate-800 rounded-full text-xs text-slate-400 border border-slate-700">
+            Этап 2: От идеи к прототипу
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-6">
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-black mb-4 bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                Добро пожаловать во 2 этап!
+            </h1>
+            <p class="text-slate-400 text-xl max-w-2xl mx-auto">
+                Здесь вы научитесь создавать сайты без кодирования (No-code) и освоите базу профессиональной разработки в VS Code.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+            
+            <div onclick="window.location.href='nocode.html'" class="topic-card bg-slate-800 p-8 rounded-[32px] border border-slate-700">
+                <div class="text-4xl mb-4">🛠️</div>
+                <h3 class="text-2xl font-bold mb-2 text-blue-400">No-Code</h3>
+                <p class="text-slate-400 text-sm">Создание сайтов на конструкторах без единой строчки кода.</p>
+            </div>
+
+            <div onclick="window.location.href='html_lesson.html'" class="topic-card bg-slate-800 p-8 rounded-[32px] border border-slate-700">
+                <div class="text-4xl mb-4">📄</div>
+                <h3 class="text-2xl font-bold mb-2 text-orange-500">HTML</h3>
+                <p class="text-slate-400 text-sm">VS Code: Изучаем структуру и скелет веб-страниц.</p>
+            </div>
+
+            <div onclick="window.location.href='css_lesson.html'" class="topic-card bg-slate-800 p-8 rounded-[32px] border border-slate-700">
+                <div class="text-4xl mb-4">🎨</div>
+                <h3 class="text-2xl font-bold mb-2 text-pink-500">CSS</h3>
+                <p class="text-slate-400 text-sm">VS Code: Дизайн, стили, цвета и адаптивность сайта.</p>
+            </div>
+
+            <div onclick="window.location.href='js_lesson.html'" class="topic-card bg-slate-800 p-8 rounded-[32px] border border-slate-700">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="text-2xl font-bold mb-2 text-yellow-400">JavaScript</h3>
+                <p class="text-slate-400 text-sm">VS Code: Оживляем кнопки и добавляем логику на сайт.</p>
+            </div>
+
+            <div onclick="window.location.href='marketing.html'" class="topic-card bg-slate-800 p-8 rounded-[32px] border border-slate-700">
+                <div class="text-4xl mb-4">📢</div>
+                <h3 class="text-2xl font-bold mb-2 text-emerald-400">Маркетинг</h3>
+                <p class="text-slate-400 text-sm">Реклама, продвижение и поиск первых клиентов.</p>
+            </div>
+
+            <div onclick="window.location.href='ipp.html'" class="topic-card bg-slate-800 p-8 rounded-[32px] border border-slate-700">
+                <div class="text-4xl mb-4">💼</div>
+                <h3 class="text-2xl font-bold mb-2 text-purple-400">Бизнес и ИП</h3>
+                <p class="text-slate-400 text-sm">Юридические основы, налоги и запуск своего дела.</p>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
