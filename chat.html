@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Pro Media | Ultimate Chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --bg-main: #2c2f33;
+            --bg-sidebar: #23272a;
+            --bg-input-area: #36393f;
+            --accent-blue: #007bff;
+            --text-color: #ffffff;
+            --msg-in: #4f545c;
+            --msg-out: #007bff;
+            --border-color: #202225;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; height: 100vh; overflow: hidden; }
+
+        #chat-widget-button {
+            position: fixed; bottom: 30px; left: 30px;
+            width: 70px; height: 70px; background: var(--accent-blue);
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; cursor: pointer; z-index: 1000;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            transition: 0.3s;
+        }
+        #chat-widget-button:hover { transform: scale(1.1); }
+
+        #chat-window {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--bg-main); display: none; z-index: 2000;
+            flex-direction: row;
+        }
+
+        .sidebar {
+            width: 320px; background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            display: flex; flex-direction: column;
+        }
+        .sidebar-header { padding: 25px; font-size: 22px; font-weight: bold; color: white; border-bottom: 1px solid var(--border-color); }
+        .sidebar-content { flex: 1; overflow-y: auto; padding-top: 10px; }
+        
+        .section-title { 
+            padding: 15px 20px 5px 20px; font-size: 12px; text-transform: uppercase; 
+            color: #8e9297; font-weight: bold; display: flex; justify-content: space-between;
+        }
+
+        .item {
+            padding: 12px 20px; cursor: pointer; display: flex; align-items: center; gap: 12px; color: #b9bbbe; transition: 0.2s;
+        }
+        .item:hover { background: #36393f; color: white; }
+        .item.active { background: #40444b; color: white; border-left: 4px solid var(--accent-blue); }
+
+        .avatar {
+            width: 35px; height: 35px; border-radius: 50%; background: #5865f2;
+            display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;
+        }
+
+        .main-chat { flex: 1; display: flex; flex-direction: column; background: var(--bg-main); }
+        .chat-header { 
+            padding: 20px 30px; background: var(--bg-sidebar); 
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .chat-header h2 { color: white; font-size: 20px; }
+
+        .messages-container { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        
+        .message { max-width: 65%; padding: 12px 18px; border-radius: 18px; color: white; word-wrap: break-word; line-height: 1.4; }
+        .incoming { background: var(--msg-in); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .my-message { background: var(--msg-out); align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-media { max-width: 100%; border-radius: 10px; margin-top: 8px; display: block; }
+
+        .input-panel { padding: 25px 30px; background: var(--bg-sidebar); display: flex; gap: 15px; align-items: center; }
+        #msgInput { 
+            flex: 1; padding: 14px 25px; border-radius: 30px; border: none; 
+            background: var(--bg-input-area); color: white; outline: none; font-size: 16px;
+        }
+
+        .btn-icon { background: #4f545c; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; border: none;}
+        .btn-icon:hover { transform: scale(1.1); background: #72767d; }
+        .btn-send { background: var(--accent-blue); color: white; border-radius: 30px; padding: 12px 25px; border: none; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="chat-widget-button" onclick="toggleChat()">
+        <svg width="35" height="35" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    </div>
+
+    <div id="chat-window">
+        <div class="sidebar">
+            <div class="sidebar-header">Pro Media</div>
+            <div class="sidebar-content">
+                <div class="section-title">Группы <button onclick="createNewRoom()" style="background:none; border:none; color:#43b581; cursor:pointer; font-size:18px;">+</button></div>
+                <div id="roomList"></div>
+
+                <div class="section-title" style="margin-top:20px;">Люди</div>
+                <div id="userList"></div>
+            </div>
+        </div>
+
+        <div class="main-chat">
+            <div class="chat-header">
+                <h2 id="currentChatTitle">Выберите чат</h2>
+                <button onclick="toggleChat()" style="background:none; border:none; color:white; font-size:35px; cursor:pointer;">&times;</button>
+            </div>
+            
+            <div class="messages-container" id="chatBox"></div>
+
+            <div class="input-panel" id="inputArea" style="visibility: hidden;">
+                <label for="fileInput" class="btn-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                </label>
+                <input type="file" id="fileInput" style="display:none" accept="image/*,video/*" onchange="uploadFile(this)">
+                
+                <input type="text" id="msgInput" placeholder="Напишите сообщение..." autocomplete="off">
+                
+                <button class="btn-send" onclick="handleSend()">Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://dvwegmdyhjyihrxqvoiw.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2d2VnbWR5aGp5aWhyeHF2b2l3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg0MDYwOTAsImV4cCI6MjA4Mzk4MjA5MH0.HrG5GijHH4Lj7mO3SorbG0kKfnl5FLtSCWp6aONYxJ8';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const myId = '7943213b-6532-4b9c-bd10-4dcc4ae5d90c';
+        let currentRoomId = null;
+        let currentRecipientId = null;
+
+        function toggleChat() {
+            const win = document.getElementById('chat-window');
+            const isVisible = win.style.display === 'flex';
+            win.style.display = isVisible ? 'none' : 'flex';
+            document.body.style.overflow = isVisible ? 'auto' : 'hidden';
+            if (!isVisible) { loadRooms(); loadUsers(); }
+        }
+
+        async function loadRooms() {
+            const { data } = await _supabase.from('rooms').select('*').order('name');
+            const list = document.getElementById('roomList');
+            list.innerHTML = '';
+            data?.forEach(room => {
+                const div = document.createElement('div');
+                div.className = 'item' + (currentRoomId === room.id ? ' active' : '');
+                div.innerHTML = `<div class="avatar" style="background:#43b581">#</div> ${room.name}`;
+                div.onclick = () => { 
+                    currentRoomId = room.id; 
+                    currentRecipientId = null; 
+                    openChat(room.name); 
+                    loadRooms(); // Обновить активный класс
+                };
+                list.appendChild(div);
+            });
+        }
+
+        async function loadUsers() {
+            const { data } = await _supabase.from('profiles').select('*').neq('id', myId);
+            const list = document.getElementById('userList');
+            list.innerHTML = '';
+            data?.forEach(user => {
+                const div = document.createElement('div');
+                div.className = 'item' + (currentRecipientId === user.id ? ' active' : '');
+                div.innerHTML = `<div class="avatar">${user.username?.[0] || '?'}</div> ${user.username || 'Аноним'}`;
+                div.onclick = () => { 
+                    currentRecipientId = user.id; 
+                    currentRoomId = null; 
+                    openChat(user.username); 
+                    loadUsers(); // Обновить активный класс
+                };
+                list.appendChild(div);
+            });
+        }
+
+        function openChat(title) {
+            document.getElementById('currentChatTitle').textContent = title;
+            document.getElementById('inputArea').style.visibility = 'visible';
+            const box = document.getElementById('chatBox');
+            box.innerHTML = ''; // Чистим только при смене чата
+            loadMessages();
+        }
+
+        async function loadMessages() {
+            let query = _supabase.from('messages').select('*');
+            if (currentRoomId) {
+                query = query.eq('room_id', currentRoomId);
+            } else {
+                query = query.or(`and(user_id.eq.${myId},recipient_id.eq.${currentRecipientId}),and(user_id.eq.${currentRecipientId},recipient_id.eq.${myId})`);
+            }
+            
+            const { data } = await query.order('created_at');
+            const box = document.getElementById('chatBox');
+            box.innerHTML = ''; // Очистка перед загрузкой истории
+            data?.forEach(msg => renderMessage(msg));
+        }
+
+        async function handleSend() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            if (!text) return;
+            input.value = '';
+            const payload = { content: text, user_id: myId, room_id: currentRoomId, recipient_id: currentRecipientId };
+            await _supabase.from('messages').insert([payload]);
+        }
+
+        document.getElementById('msgInput').addEventListener('keydown', e => { if(e.key === 'Enter') handleSend(); });
+
+        async function uploadFile(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const fileName = `${Date.now()}_${file.name}`;
+            await _supabase.storage.from('chat-media').upload(fileName, file);
+            const { data } = _supabase.storage.from('chat-media').getPublicUrl(fileName);
+            const content = file.type.includes('video') ? `[video]:${data.publicUrl}` : `[image]:${data.publicUrl}`;
+            await _supabase.from('messages').insert([{ content, user_id: myId, room_id: currentRoomId, recipient_id: currentRecipientId }]);
+        }
+
+        function renderMessage(msg) {
+            const box = document.getElementById('chatBox');
+            // Проверка на дубликаты (чтобы Realtime не рисовал то, что уже загружено)
+            if (document.getElementById(`msg-${msg.id}`)) return;
+
+            const div = document.createElement('div');
+            div.id = `msg-${msg.id}`;
+            div.className = 'message ' + (msg.user_id === myId ? 'my-message' : 'incoming');
+            
+            if (msg.content.startsWith('[image]:')) {
+                const img = document.createElement('img');
+                img.src = msg.content.replace('[image]:', '');
+                img.className = 'chat-media';
+                div.appendChild(img);
+            } else if (msg.content.startsWith('[video]:')) {
+                const vid = document.createElement('video');
+                vid.src = msg.content.replace('[video]:', '');
+                vid.className = 'chat-media';
+                vid.controls = true;
+                div.appendChild(vid);
+            } else {
+                div.textContent = msg.content;
+            }
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        async function createNewRoom() {
+            const name = prompt("Название группы:");
+            if (name) { await _supabase.from('rooms').insert([{ name }]); loadRooms(); }
+        }
+
+        _supabase.channel('db_changes').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+            const m = payload.new;
+            // Условие: отрисовывать только если сообщение принадлежит текущему открытому чату
+            if ((currentRoomId && m.room_id === currentRoomId) || 
+                (currentRecipientId && (m.user_id === currentRecipientId || m.recipient_id === currentRecipientId))) {
+                renderMessage(m);
+            }
+        }).subscribe();
+
+        loadRooms(); loadUsers();
+    </script>
+</body>
+</html>

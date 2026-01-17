@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Stars Market | Главная</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-[#0f172a] text-white">
+
+    <nav class="border-b border-slate-800 p-5 flex justify-between items-center bg-slate-900 sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <h1 class="text-2xl font-bold text-blue-400">Stars Market</h1>
+        </div>
+        
+        <div class="flex items-center gap-6">
+            <div onclick="location.href='dashboard.html'" class="cursor-pointer flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-2xl border border-slate-700 hover:border-blue-500 transition">
+                <div class="text-right">
+                    <p id="user-name-nav" class="text-xs font-bold">Загрузка...</p>
+                    <p class="text-sm text-yellow-400 font-extrabold"><span id="user-balance-nav">0</span> ⭐</p>
+                </div>
+                <i class="fas fa-user-circle text-2xl text-slate-400"></i>
+            </div>
+            <button onclick="document.getElementById('post-modal').classList.remove('hidden')" class="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-xl font-bold shadow-lg shadow-blue-500/20 transition">
+                + Создать пост
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-6">
+        <h2 class="text-xl font-bold mb-8 text-slate-400 uppercase tracking-widest">Лента услуг</h2>
+        <div id="posts-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            </div>
+    </main>
+
+    <div id="post-modal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 z-[100]">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-md rounded-[2rem] p-8">
+            <h2 class="text-2xl font-bold mb-6">Опубликовать услугу</h2>
+            <input type="text" id="p-title" placeholder="Что вы сделаете?" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl mb-4 outline-none focus:border-blue-500 text-white">
+            <textarea id="p-desc" placeholder="Подробности услуги..." class="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl mb-4 h-32 outline-none focus:border-blue-500 text-white"></textarea>
+            <input type="number" id="p-price" placeholder="Цена в ⭐" class="w-full bg-slate-800 border border-slate-700 p-4 rounded-2xl mb-6 outline-none focus:border-blue-500 text-white">
+            <div class="flex gap-4">
+                <button onclick="document.getElementById('post-modal').classList.add('hidden')" class="flex-1 text-slate-500 font-bold">Отмена</button>
+                <button onclick="publish()" id="pub-btn" class="flex-1 bg-blue-600 py-4 rounded-2xl font-bold">Опубликовать</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SB_URL = 'https://dvwegmdyhjyihrxqvoiw.supabase.co';
+        const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2d2VnbWR5aGp5aWhyeHF2b2l3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg0MDYwOTAsImV4cCI6MjA4Mzk4MjA5MH0.HrG5GijHH4Lj7mO3SorbG0kKfnl5FLtSCWp6aONYxJ8';
+        const supabaseClient = supabase.createClient(SB_URL, SB_KEY);
+
+        async function init() {
+            // 1. Проверяем авторизацию
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) {
+                alert("Нужно войти в систему!");
+                window.location.href = 'index.html'; 
+                return;
+            }
+
+            // 2. Загружаем данные из таблицы profiles
+            const { data: profile, error: profError } = await supabaseClient
+                .from('profiles')
+                .select('*')
+                .eq('id', user.id)
+                .single();
+            
+            if (profile) {
+                document.getElementById('user-name-nav').innerText = profile.full_name || "Пользователь";
+                document.getElementById('user-balance-nav').innerText = profile.wallet_balance;
+            } else {
+                // Если записи в profiles нет, берем имя из Auth метаданных
+                document.getElementById('user-name-nav').innerText = user.user_metadata.full_name || "Пользователь";
+                console.log("Профиль не найден в таблице profiles");
+            }
+
+            // 3. Загружаем посты
+            loadPosts();
+        }
+
+        async function loadPosts() {
+            const { data: posts, error } = await supabaseClient
+                .from('posts')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            const container = document.getElementById('posts-list');
+            if (error || !posts || posts.length === 0) {
+                container.innerHTML = '<p class="col-span-full text-center text-slate-600">Пока никто не предложил услуг...</p>';
+                return;
+            }
+
+            container.innerHTML = posts.map(post => `
+                <div class="bg-slate-800/50 border border-slate-800 p-6 rounded-[2rem] hover:border-blue-500/50 transition">
+                    <h3 class="text-xl font-bold mb-2">${post.title}</h3>
+                    <p class="text-slate-400 text-sm mb-6 line-clamp-3">${post.description || 'Нет описания'}</p>
+                    <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                        <span class="text-xl font-black text-blue-400">${post.price} ⭐</span>
+                        <div class="text-right">
+                            <span class="text-[10px] text-slate-500 block uppercase font-bold">Исполнитель</span>
+                            <span class="text-xs text-white font-medium">${post.author_name || 'Аноним'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function publish() {
+            const title = document.getElementById('p-title').value;
+            const desc = document.getElementById('p-desc').value;
+            const price = document.getElementById('p-price').value;
+            const btn = document.getElementById('pub-btn');
+
+            if (!title || !price) return alert("Заполни название и цену!");
+
+            btn.disabled = true;
+            btn.innerText = "Публикация...";
+
+            const { data: { user } } = await supabaseClient.auth.getUser();
+
+            const { error } = await supabaseClient.from('posts').insert([
+                { 
+                    title: title, 
+                    description: desc, 
+                    price: parseInt(price), 
+                    author_id: user.id, 
+                    author_name: user.user_metadata.full_name || "Пользователь"
+                }
+            ]);
+
+            if (error) {
+                alert("Ошибка: " + error.message);
+                btn.disabled = false;
+                btn.innerText = "Опубликовать";
+            } else {
+                location.reload();
+            }
+        }
+
+        // Запуск
+        init();
+    </script>
+</body>
+</html
